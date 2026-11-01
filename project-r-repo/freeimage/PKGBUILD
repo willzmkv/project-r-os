@@ -1,0 +1,38 @@
+# Maintainer:
+
+pkgname=freeimage
+pkgver=3.18.0
+pkgrel=1
+pkgdesc='Library for loading common image formats'
+arch=('x86_64')
+url='http://freeimage.sourceforge.net/'
+license=('custom:FIPL' 'GPL2' 'GPL3')
+depends=('gcc-libs')
+
+_src="FreeImage${pkgver//./}"
+source=(
+  "${_src}.zip::https://downloads.sourceforge.net/freeimage/${_src}.zip"
+)
+sha256sums=('SKIP')
+
+build() {
+  cd FreeImage
+  make -f Makefile.gnu \
+    CFLAGS="-O3 -fPIC -fexceptions -fvisibility=hidden -Wno-error" \
+    CXXFLAGS="-O3 -fPIC -fexceptions -fvisibility=hidden -Wno-error -fpermissive"
+}
+
+package() {
+  cd FreeImage
+  install -Dm755 "Dist/libFreeImage.so.${pkgver}" \
+    "${pkgdir}/usr/lib/libFreeImage.so.${pkgver}"
+  ln -sf "libFreeImage.so.${pkgver}" "${pkgdir}/usr/lib/libFreeImage.so.3"
+  ln -sf "libFreeImage.so.3" "${pkgdir}/usr/lib/libFreeImage.so"
+  install -Dm644 Dist/FreeImage.h "${pkgdir}/usr/include/FreeImage.h"
+  install -Dm644 license-fi.txt \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-fi"
+  install -Dm644 license-gplv2.txt \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-gplv2"
+  install -Dm644 license-gplv3.txt \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-gplv3"
+}

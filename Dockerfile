@@ -28,7 +28,7 @@ RUN pacman -S --noconfirm \
         alsa-lib jack2 libpulse sndio speexdsp \
         sdl2 sdl3 libpng libwebp libxi libxrandr \
         shaderc p7zip \
-        bluez-libs curl ffmpeg freeimage freetype2 gettext \
+        bluez-libs curl ffmpeg freetype2 gettext \
         harfbuzz icu libgit2 poppler pugixml \
         libxkbcommon dbus-glib && \
     pacman -Scc --noconfirm
@@ -42,6 +42,9 @@ RUN useradd -m -G wheel builder && \
 # the rest of the project changes (test files, profiledef, etc.).
 WORKDIR /aur-build
 COPY --chown=builder:builder project-r-repo/ /aur-build/
+
+# Expose the local AUR repo so makepkg -s can install inter-package deps
+RUN printf '\n[project-r-local]\nSigLevel = Never\nServer = file:///aur-build/repo\n' >> /etc/pacman.conf
 
 # Pre-build ALL packages (pr-* stubs + AUR) as a cached Docker image layer.
 # Subsequent `docker build` runs only rebuild this layer when PKGBUILDs change.

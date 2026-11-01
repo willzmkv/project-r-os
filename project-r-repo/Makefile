@@ -7,16 +7,20 @@ PKG_DIRS  := $(patsubst %/PKGBUILD,%,$(PKGS))
 
 .PHONY: $(PKG_DIRS)
 
-all: $(REPO_DIR)/$(REPO_NAME).db.tar.gz
+# Explicit ordering for AUR inter-package dependencies
+emulationstation-de: freeimage
+pcsx2: rapidyaml
 
-$(REPO_DIR)/$(REPO_NAME).db.tar.gz: $(PKG_DIRS)
-	repo-add $(REPO_DIR)/$(REPO_NAME).db.tar.gz $(REPO_DIR)/*.pkg.tar.zst
+all: $(PKG_DIRS)
+	@echo "==> All packages built."
 
 $(PKG_DIRS):
 	@echo "==> Building package: $@"
 	mkdir -p $(REPO_DIR)
-	cd $@ && makepkg -s --noconfirm
+	cd $@ && makepkg -s --noconfirm --noprogressbar
 	cp $@/*.pkg.tar.zst $(REPO_DIR)/
+	cd $(REPO_DIR) && repo-add --new $(REPO_NAME).db.tar.gz *.pkg.tar.zst
+	sudo pacman -Sy --noconfirm
 
 clean:
 	rm -rf $(REPO_DIR)
