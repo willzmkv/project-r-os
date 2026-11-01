@@ -1,0 +1,9 @@
+work/
+out/
+*.iso
+*.img
+*.log
+__pycache__/
+*.pyc
+node_modules/
+.env
