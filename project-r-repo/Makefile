@@ -20,7 +20,7 @@ $(PKG_DIRS):
 	cd $@ && makepkg -s --noconfirm --noprogressbar
 	cp $@/*.pkg.tar.zst $(REPO_DIR)/
 	cd $(REPO_DIR) && repo-add --new $(REPO_NAME).db.tar.gz *.pkg.tar.zst
-	sudo pacman -Sy --noconfirm
+	sudo pacman -Sy --noconfirm || true
 
 clean:
 	rm -rf $(REPO_DIR)
