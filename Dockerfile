@@ -44,7 +44,9 @@ WORKDIR /aur-build
 COPY --chown=builder:builder project-r-repo/ /aur-build/
 
 # Expose the local AUR repo so makepkg -s can install inter-package deps
-RUN printf '\n[project-r-local]\nSigLevel = Never\nServer = file:///aur-build/repo\n' >> /etc/pacman.conf
+# and give builder ownership of the workdir so it can create repo/
+RUN printf '\n[project-r-local]\nSigLevel = Never\nServer = file:///aur-build/repo\n' >> /etc/pacman.conf && \
+    chown builder:builder /aur-build
 
 # Pre-build ALL packages (pr-* stubs + AUR) as a cached Docker image layer.
 # Subsequent `docker build` runs only rebuild this layer when PKGBUILDs change.
