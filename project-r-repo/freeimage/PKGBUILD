@@ -27,20 +27,17 @@ prepare() {
 build() {
   cd FreeImage
   make -f Makefile.gnu
-  echo "=== FreeImage/ after make ===" >&2
-  ls -la *.so* *.a 2>&1 || echo "no .so/.a in root" >&2
-  echo "=== Dist/ ===" >&2
-  ls -la Dist/ 2>&1 || echo "no Dist/" >&2
 }
 
 package() {
   cd FreeImage
-  # .so is created in source root; Dist/ is only populated by 'make dist'
-  install -Dm755 "libFreeImage.so.${pkgver}" \
-    "${pkgdir}/usr/lib/libFreeImage.so.${pkgver}"
-  ln -sf "libFreeImage.so.${pkgver}" "${pkgdir}/usr/lib/libFreeImage.so.3"
-  ln -sf "libFreeImage.so.3" "${pkgdir}/usr/lib/libFreeImage.so"
-  install -Dm644 Source/FreeImage.h "${pkgdir}/usr/include/FreeImage.h"
+  # Makefile.gnu creates lowercase libfreeimage-X.Y.Z.so (dash, not dot)
+  install -Dm755 "Dist/libfreeimage-${pkgver}.so" \
+    "${pkgdir}/usr/lib/libfreeimage-${pkgver}.so"
+  ln -sf "libfreeimage-${pkgver}.so" "${pkgdir}/usr/lib/libfreeimage.so"
+  # Compatibility symlink for cmake FindFreeImage (looks for libFreeImage.so)
+  ln -sf "libfreeimage-${pkgver}.so" "${pkgdir}/usr/lib/libFreeImage.so"
+  install -Dm644 Dist/FreeImage.h "${pkgdir}/usr/include/FreeImage.h"
   install -Dm644 license-fi.txt \
     "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-fi"
   install -Dm644 license-gplv2.txt \
