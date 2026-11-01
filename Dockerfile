@@ -31,8 +31,11 @@ RUN pacman -S --noconfirm \
         bluez-libs curl ffmpeg freetype2 gettext \
         harfbuzz icu libgit2 poppler pugixml \
         libxkbcommon dbus-glib && \
-    pacman -Scc --noconfirm && \
-    pacman -S --noconfirm --needed zlib-ng-compat
+    pacman -Scc --noconfirm
+
+# Replace zlib with CachyOS zlib-ng-compat
+RUN pacman -Rdd --noconfirm zlib && \
+    pacman -S --noconfirm zlib-ng-compat
 
 # makepkg refuses root — create build user
 RUN useradd -m -G wheel builder && \
