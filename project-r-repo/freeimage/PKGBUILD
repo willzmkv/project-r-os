@@ -15,11 +15,16 @@ source=(
 )
 sha256sums=('SKIP')
 
+prepare() {
+  cd FreeImage
+  # Append tolerant flags — do NOT replace CXXFLAGS or $(INCLUDE) path is lost
+  sed -i 's|^\(CXXFLAGS.*\)|\1 -Wno-error -fpermissive|' Makefile.gnu
+  sed -i 's|^\(CFLAGS[^_].*\)|\1 -Wno-error|' Makefile.gnu
+}
+
 build() {
   cd FreeImage
-  make -f Makefile.gnu \
-    CFLAGS="-O3 -fPIC -fexceptions -fvisibility=hidden -Wno-error" \
-    CXXFLAGS="-O3 -fPIC -fexceptions -fvisibility=hidden -Wno-error -fpermissive"
+  make -f Makefile.gnu
 }
 
 package() {
