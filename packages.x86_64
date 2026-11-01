@@ -95,3 +95,46 @@ npm
 cjson
 sdl2
 sdl3
+
+# Project-R services (from local project-r-repo)
+pr-mediad
+pr-builder
+pr-meta
+pr-achieve
+pr-controller
+pr-maestro
+
+# ES-DE Frontend
+emulationstation-de
+
+# RetroArch + cores
+retroarch
+retroarch-assets-xmb
+retroarch-assets-ozone
+libretro-mupen64plus-next
+libretro-duckstation
+libretro-bsnes
+libretro-mgba
+libretro-stella2014
+libretro-genesis-plus-gx
+libretro-flycast
+libretro-beetle-saturn
+libretro-mesen
+libretro-melonds
+libretro-pcsx-rearmed
+libretro-snes9x
+
+# Standalone emulators
+rpcs3
+shadps4
+dolphin-emu
+pcsx2
+xemu
+
+# Desktop apps
+steam
+lutris
+ghostty
+
+# Game launchers
+heroic-games-launcher
