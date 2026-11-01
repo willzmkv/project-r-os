@@ -51,7 +51,6 @@ vulkan-radeon
 lib32-vulkan-icd-loader
 nvidia-dkms
 nvidia-utils
-lib32-nvidia-utils
 libva
 libva-mesa-driver
 
