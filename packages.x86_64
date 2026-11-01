@@ -41,7 +41,7 @@ xorg-server
 xorg-xinit
 xorg-xrandr
 wayland
-xwayland
+xorg-xwayland
 
 # GPU drivers (Mesa + NVIDIA)
 mesa
@@ -64,7 +64,6 @@ wireplumber
 
 # KDE Plasma (minimal — desktop mode)
 plasma-desktop
-plasma-wayland-session
 kwin
 kscreen
 systemsettings
