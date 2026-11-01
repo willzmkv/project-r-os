@@ -7,9 +7,11 @@ echo "==> [Task 10] Project-R ISO builder"
 echo "==> Running package list tests..."
 bats tests/test_packages.sh
 
-# Step 2: build local PKGBUILD repo (pr-* stubs)
-echo "==> Building local PKGBUILD repo..."
-make repo
+# Step 2: use pre-built packages from /aur-build/ (built as Docker image layer)
+echo "==> Copying pre-built packages from image layer..."
+mkdir -p project-r-repo/repo
+cp /aur-build/repo/*.pkg.tar.zst project-r-repo/repo/
+repo-add project-r-repo/repo/project-r-repo.db.tar.gz project-r-repo/repo/*.pkg.tar.zst
 
 # Step 3: build the ISO (needs loop devices — must run --privileged)
 echo "==> Building ISO..."

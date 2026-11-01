@@ -71,8 +71,8 @@ PACKAGES_PR="project-r-packages.x86_64"
     [ "$status" -eq 0 ]
 }
 
-@test "RetroArch core duckstation present" {
-    run grep -qx "libretro-duckstation" "$PACKAGES_PR"
+@test "duckstation standalone emulator present" {
+    run grep -qx "duckstation" "$PACKAGES_PR"
     [ "$status" -eq 0 ]
 }
 
@@ -86,8 +86,8 @@ PACKAGES_PR="project-r-packages.x86_64"
     [ "$status" -eq 0 ]
 }
 
-@test "RetroArch core stella2014 present" {
-    run grep -qx "libretro-stella2014" "$PACKAGES_PR"
+@test "RetroArch core mame present" {
+    run grep -qx "libretro-mame" "$PACKAGES_PR"
     [ "$status" -eq 0 ]
 }
 
@@ -101,8 +101,13 @@ PACKAGES_PR="project-r-packages.x86_64"
     [ "$status" -eq 0 ]
 }
 
-@test "RetroArch core beetle-saturn present" {
-    run grep -qx "libretro-beetle-saturn" "$PACKAGES_PR"
+@test "RetroArch core kronos (Saturn) present" {
+    run grep -qx "libretro-kronos" "$PACKAGES_PR"
+    [ "$status" -eq 0 ]
+}
+
+@test "RetroArch core beetle-psx-hw present" {
+    run grep -qx "libretro-beetle-psx-hw" "$PACKAGES_PR"
     [ "$status" -eq 0 ]
 }
 

@@ -101,7 +101,10 @@ pr-achieve
 pr-controller
 pr-maestro
 
-# RetroArch + available cores (extra repo)
+# ES-DE frontend
+emulationstation-de
+
+# RetroArch + cores (Arch extra)
 retroarch
 retroarch-assets-xmb
 retroarch-assets-ozone
@@ -113,19 +116,26 @@ libretro-flycast
 libretro-mesen
 libretro-melonds
 libretro-snes9x
+libretro-beetle-psx-hw
+libretro-mame
 
-# Standalone emulators (extra repo)
+# RetroArch cores (project-r-repo / AUR)
+libretro-kronos
+
+# Standalone emulators (Arch extra)
 dolphin-emu
+
+# Standalone emulators (project-r-repo / AUR)
+rpcs3
+shadps4
+xemu
+duckstation
+pcsx2
 
 # Desktop apps
 steam
 lutris
 ghostty
 
-# Game launchers (cachyos repo)
+# Game launchers (project-r-repo / AUR)
 heroic-games-launcher
-
-# NOTE: cachyos-extra packages (emulationstation-de, rpcs3, shadps4, pcsx2, xemu,
-# libretro-duckstation, libretro-stella2014, libretro-beetle-saturn, libretro-pcsx-rearmed)
-# are not currently available — cachyos-extra mirror is unreachable.
-# These will be added when a stable CachyOS mirror is identified or packages are AUR-built.

@@ -1,0 +1,32 @@
+# Maintainer:
+
+pkgname=libretro-kronos
+pkgver=r2067.97bc4df
+pkgrel=1
+pkgdesc='Sega Saturn libretro core (Kronos)'
+url='https://github.com/libretro/yabause'
+arch=('x86_64')
+license=('GPL2')
+depends=('gcc-libs' 'alsa-lib')
+makedepends=('git' 'cmake' 'ninja')
+
+_pkgsrc="kronos-src"
+source=(
+  "$_pkgsrc::git+https://github.com/libretro/yabause.git#branch=kronos"
+)
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "$_pkgsrc"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd "$_pkgsrc/yabause/src/libretro"
+  make platform=unix
+}
+
+package() {
+  cd "$_pkgsrc/yabause/src/libretro"
+  install -Dm755 kronos_libretro.so "$pkgdir/usr/lib/libretro/kronos_libretro.so"
+}

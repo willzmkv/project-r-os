@@ -9,29 +9,33 @@ pr-maestro
 # ES-DE Frontend
 emulationstation-de
 
-# RetroArch + cores
+# RetroArch + cores (Arch extra)
 retroarch
 retroarch-assets-xmb
 retroarch-assets-ozone
 libretro-mupen64plus-next
-libretro-duckstation
 libretro-bsnes
 libretro-mgba
-libretro-stella2014
 libretro-genesis-plus-gx
 libretro-flycast
-libretro-beetle-saturn
 libretro-mesen
 libretro-melonds
-libretro-pcsx-rearmed
 libretro-snes9x
+libretro-beetle-psx-hw
+libretro-mame
 
-# Standalone emulators
+# RetroArch cores (project-r-repo / AUR)
+libretro-kronos
+
+# Standalone emulators (Arch extra)
+dolphin-emu
+
+# Standalone emulators (project-r-repo / AUR)
 rpcs3
 shadps4
-dolphin-emu
-pcsx2
 xemu
+duckstation
+pcsx2
 
 # AUR packages (must be pre-built into project-r-repo before ISO build)
 # xenia-canary      — AUR: github.com/xenia-canary/xenia-canary
