@@ -19,9 +19,9 @@ prepare() {
   cd FreeImage
   # GCC 14 treats 'register' as hard error in C++17; patch bundled OpenEXR/Half
   sed -i 's/\bregister int\b/int/g' Source/OpenEXR/Half/half.h
-  # Downgrade to C++14 (allows remaining deprecated features) and suppress W-as-E
-  sed -i '/^CXXFLAGS/ s/$/ -std=gnu++14 -Wno-error/' Makefile.gnu
-  sed -i '/^CFLAGS[^_]/ s/$/ -Wno-error/' Makefile.gnu
+  # Append tolerant flags at end of Makefile (+=  preserves $(INCLUDE) etc.)
+  printf '\nCFLAGS += -Wno-error -Wno-old-style-definition -Wno-implicit-function-declaration\n' >> Makefile.gnu
+  printf 'CXXFLAGS += -std=gnu++14 -Wno-error\n' >> Makefile.gnu
 }
 
 build() {
