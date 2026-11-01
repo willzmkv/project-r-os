@@ -31,11 +31,12 @@ build() {
 
 package() {
   cd FreeImage
-  install -Dm755 "Dist/libFreeImage.so.${pkgver}" \
+  # .so is created in source root; Dist/ is only populated by 'make dist'
+  install -Dm755 "libFreeImage.so.${pkgver}" \
     "${pkgdir}/usr/lib/libFreeImage.so.${pkgver}"
   ln -sf "libFreeImage.so.${pkgver}" "${pkgdir}/usr/lib/libFreeImage.so.3"
   ln -sf "libFreeImage.so.3" "${pkgdir}/usr/lib/libFreeImage.so"
-  install -Dm644 Dist/FreeImage.h "${pkgdir}/usr/include/FreeImage.h"
+  install -Dm644 Source/FreeImage.h "${pkgdir}/usr/include/FreeImage.h"
   install -Dm644 license-fi.txt \
     "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-fi"
   install -Dm644 license-gplv2.txt \
