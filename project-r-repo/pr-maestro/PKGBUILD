@@ -1,0 +1,30 @@
+# Maintainer: Project-R <https://github.com/willzmkv/project-r-os>
+pkgname=pr-maestro
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Project-R — pr-maestro (stub placeholder)"
+arch=('x86_64')
+license=('GPL3')
+depends=()
+source=()
+sha256sums=()
+
+package() {
+    install -dm755 "$pkgdir/usr/bin"
+    printf '#!/bin/bash\necho "pr-maestro stub"\n' > "$pkgdir/usr/bin/pr-maestro"
+    chmod +x "$pkgdir/usr/bin/pr-maestro"
+
+    install -dm755 "$pkgdir/usr/lib/systemd/system"
+    cat > "$pkgdir/usr/lib/systemd/system/pr-maestro.service" << 'SVCEOF'
+[Unit]
+Description=Project-R pr-maestro (stub)
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/pr-maestro
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+SVCEOF
+}

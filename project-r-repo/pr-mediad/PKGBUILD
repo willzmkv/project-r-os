@@ -1,0 +1,30 @@
+# Maintainer: Project-R <https://github.com/willzmkv/project-r-os>
+pkgname=pr-mediad
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Project-R — pr-mediad (stub placeholder)"
+arch=('x86_64')
+license=('GPL3')
+depends=()
+source=()
+sha256sums=()
+
+package() {
+    install -dm755 "$pkgdir/usr/bin"
+    printf '#!/bin/bash\necho "pr-mediad stub"\n' > "$pkgdir/usr/bin/pr-mediad"
+    chmod +x "$pkgdir/usr/bin/pr-mediad"
+
+    install -dm755 "$pkgdir/usr/lib/systemd/system"
+    cat > "$pkgdir/usr/lib/systemd/system/pr-mediad.service" << 'SVCEOF'
+[Unit]
+Description=Project-R pr-mediad (stub)
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/pr-mediad
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+SVCEOF
+}
