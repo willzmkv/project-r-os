@@ -43,14 +43,11 @@ xorg-xrandr
 wayland
 xorg-xwayland
 
-# GPU drivers (Mesa + NVIDIA)
+# GPU drivers (Mesa open source — NVIDIA can be installed post-boot)
 mesa
 lib32-mesa
 vulkan-intel
 vulkan-radeon
-lib32-vulkan-icd-loader
-nvidia-dkms
-nvidia-utils
 libva
 libva-mesa-driver
 
