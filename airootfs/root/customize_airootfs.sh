@@ -8,6 +8,7 @@ echo "==> Creating arcade user"
 useradd -m -s /bin/bash -G wheel,audio,video,input,storage,optical arcade
 # No password — auto-login handles access
 passwd -d arcade
+passwd -d root
 
 # ── 2. sudo without password for wheel group ─────────────────────────────────
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/wheel-nopasswd
