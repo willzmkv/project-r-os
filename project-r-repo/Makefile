@@ -1,4 +1,4 @@
-.PHONY: all clean
+.PHONY: all clean $(PKG_DIRS)
 
 REPO_NAME := project-r-repo
 REPO_DIR  := $(shell pwd)/repo
