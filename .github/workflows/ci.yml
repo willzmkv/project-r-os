@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-packages:
+    name: Package list validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install bats-core
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y bats
+
+      - name: Run package list tests (35 tests)
+        run: bats tests/test_packages.sh
+
+  test-structure:
+    name: ISO structure validation (static)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install bats-core
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y bats
+
+      - name: Run static ISO structure tests
+        run: |
+          bats tests/test_iso_build.sh --filter "profiledef|customize|project-r.conf|release"
+
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get install -y shellcheck
+
+      - name: Check profiledef.sh
+        run: shellcheck -e SC2034 profiledef.sh
+
+      - name: Check customize_airootfs.sh
+        run: shellcheck -e SC2148 airootfs/root/customize_airootfs.sh
