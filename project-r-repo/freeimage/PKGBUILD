@@ -27,6 +27,10 @@ prepare() {
 build() {
   cd FreeImage
   make -f Makefile.gnu
+  echo "=== FreeImage/ after make ===" >&2
+  ls -la *.so* *.a 2>&1 || echo "no .so/.a in root" >&2
+  echo "=== Dist/ ===" >&2
+  ls -la Dist/ 2>&1 || echo "no Dist/" >&2
 }
 
 package() {
