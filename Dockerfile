@@ -33,9 +33,8 @@ RUN pacman -S --noconfirm \
         libxkbcommon dbus-glib && \
     pacman -Scc --noconfirm
 
-# Replace zlib with CachyOS zlib-ng-compat
-RUN pacman -Rdd --noconfirm zlib && \
-    pacman -S --noconfirm zlib-ng-compat
+# Replace zlib with CachyOS zlib-ng-compat (yes answers the conflict prompt)
+RUN yes | pacman -S zlib-ng-compat
 
 # makepkg refuses root — create build user
 RUN useradd -m -G wheel builder && \
