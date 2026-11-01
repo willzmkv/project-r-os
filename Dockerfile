@@ -51,7 +51,7 @@ RUN printf '\n[project-r-local]\nSigLevel = Never\nServer = file:///aur-build/re
 # Pre-build ALL packages (pr-* stubs + AUR) as a cached Docker image layer.
 # Subsequent `docker build` runs only rebuild this layer when PKGBUILDs change.
 USER builder
-RUN make
+RUN make all
 
 # ── Full project ───────────────────────────────────────────────────────────
 USER root
