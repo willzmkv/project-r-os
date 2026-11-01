@@ -1,9 +1,11 @@
-.PHONY: all clean $(PKG_DIRS)
+.PHONY: all clean
 
 REPO_NAME := project-r-repo
 REPO_DIR  := $(shell pwd)/repo
 PKGS      := $(wildcard */PKGBUILD)
 PKG_DIRS  := $(patsubst %/PKGBUILD,%,$(PKGS))
+
+.PHONY: $(PKG_DIRS)
 
 all: $(REPO_DIR)/$(REPO_NAME).db.tar.gz
 
