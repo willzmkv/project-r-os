@@ -1,0 +1,5 @@
+# No KDE splash screen — faster switch from Gaming Mode
+
+[KSplash]
+Engine=none
+Theme=None

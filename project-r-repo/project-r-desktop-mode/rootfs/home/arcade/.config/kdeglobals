@@ -1,0 +1,9 @@
+# KDE global settings — Project-R Desktop Mode
+
+[General]
+ColorScheme=BreezeDark
+
+[KDE]
+LookAndFeelPackage=org.kde.breezedark.desktop
+# 0 = no animations: snappy desktop on low-end arcade hardware
+AnimationDurationFactor=0

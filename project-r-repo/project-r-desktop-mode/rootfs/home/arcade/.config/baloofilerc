@@ -1,0 +1,4 @@
+# Baloo (file indexer) is a plasma-desktop dependency; keep it switched off
+
+[Basic Settings]
+Indexing-Enabled=false

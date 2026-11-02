@@ -209,3 +209,55 @@ hook_env() {
   grep -q "^ExecStart=/usr/lib/project-r/hotkey-daemon.sh$" "$unit"
   grep -q "^WantedBy=default.target$" "$unit"
 }
+
+# ── KDE config files ───────────────────────────────────────────────────────────
+
+KDE_CFG="$ROOTFS_DIR/home/arcade/.config"
+
+@test "kwinrc disables electric borders" {
+  grep -q "Bottom=None" "$KDE_CFG/kwinrc"
+  grep -q "TopLeft=None" "$KDE_CFG/kwinrc"
+}
+
+@test "kwinrc disables the Plasma 6 Overview hot corner" {
+  # 9 = ElectricNone; Plasma 6 binds Overview to the top-left corner by default
+  grep -A1 "^\[Effect-overview\]" "$KDE_CFG/kwinrc" | grep -q "^BorderActivate=9$"
+}
+
+@test "ksplashrc sets splash to None" {
+  # The plan put this in plasmarc; KSplash reads ksplashrc.
+  grep -q "^Theme=None$" "$KDE_CFG/ksplashrc"
+  grep -q "^Engine=none$" "$KDE_CFG/ksplashrc"
+}
+
+@test "plasmarc selects the Breeze Dark Plasma theme" {
+  grep -q "^name=breeze-dark$" "$KDE_CFG/plasmarc"
+}
+
+@test "baloo file indexing is disabled" {
+  grep -q "^Indexing-Enabled=false$" "$KDE_CFG/baloofilerc"
+}
+
+@test "plasma applets include system tray" {
+  grep -q "org.kde.plasma.systemtray" \
+    "$KDE_CFG/plasma-org.kde.plasma.desktop-appletsrc"
+  grep -q "^plugin=org.kde.plasma.private.systemtray$" \
+    "$KDE_CFG/plasma-org.kde.plasma.desktop-appletsrc"
+}
+
+@test "plasma applets include return-to-gaming widget" {
+  grep -q "project-r.return-to-gaming" \
+    "$KDE_CFG/plasma-org.kde.plasma.desktop-appletsrc"
+}
+
+@test "plasma taskbar has no pinned launchers" {
+  grep -qx "launchers=" \
+    "$KDE_CFG/plasma-org.kde.plasma.desktop-appletsrc"
+}
+
+@test "plasma tray points at the systray containment it defines" {
+  f="$KDE_CFG/plasma-org.kde.plasma.desktop-appletsrc"
+  id="$(sed -n 's/^SystrayContainmentId=//p' "$f")"
+  [ -n "$id" ]
+  grep -A6 "^\[Containments\]\[$id\]$" "$f" | grep -q "plugin=org.kde.plasma.private.systemtray"
+}

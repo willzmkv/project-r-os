@@ -1,0 +1,25 @@
+# KWin (Plasma 6, Wayland) — Project-R Desktop Mode
+
+[ElectricBorders]
+# No screen-edge actions: accidental triggers are common on a gamepad OS
+Bottom=None
+BottomLeft=None
+BottomRight=None
+Left=None
+Right=None
+Top=None
+TopLeft=None
+TopRight=None
+
+[Effect-overview]
+# Plasma 6 binds Overview to the top-left corner by default; 9 = no corner
+BorderActivate=9
+
+[Desktops]
+# Single virtual desktop — no workspace switching needed
+Number=1
+Rows=1
+
+[org.kde.kdecoration2]
+library=org.kde.breeze
+theme=Breeze

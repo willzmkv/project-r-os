@@ -1,0 +1,6 @@
+# The arcade user has no password, so KWallet could never be unlocked at
+# login and would prompt on every Wi-Fi/app secret. Keep it disabled.
+
+[Wallet]
+Enabled=false
+First Use=false

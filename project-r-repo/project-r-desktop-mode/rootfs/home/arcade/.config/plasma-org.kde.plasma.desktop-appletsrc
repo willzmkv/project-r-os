@@ -1,0 +1,58 @@
+# Plasma 6 panel layout — Project-R Desktop Mode
+# Bottom panel: app launcher, task manager (no pinned launchers, so Ghostty
+# is only in the launcher/KRunner), system tray, clock. No desktop
+# containment is defined on purpose: Plasma creates it with defaults for the
+# current activity. The tray lives in its own containment (Plasma 6 layout).
+
+[ActionPlugins][0]
+RightButton;NoModifier=org.kde.contextmenu
+
+[ActionPlugins][1]
+RightButton;NoModifier=org.kde.contextmenu
+
+[Containments][1]
+activityId=
+formfactor=2
+immutability=1
+lastScreen=0
+location=4
+plugin=org.kde.panel
+wallpaperplugin=org.kde.image
+
+[Containments][1][Applets][2]
+immutability=1
+plugin=org.kde.plasma.kickoff
+
+[Containments][1][Applets][3]
+immutability=1
+plugin=org.kde.plasma.icontasks
+
+[Containments][1][Applets][3][Configuration][General]
+launchers=
+
+[Containments][1][Applets][4]
+immutability=1
+plugin=org.kde.plasma.systemtray
+
+[Containments][1][Applets][4][Configuration]
+SystrayContainmentId=6
+
+[Containments][1][Applets][5]
+immutability=1
+plugin=org.kde.plasma.digitalclock
+
+[Containments][1][General]
+AppletOrder=2;3;4;5
+
+[Containments][6]
+activityId=
+formfactor=2
+immutability=1
+lastScreen=0
+location=4
+plugin=org.kde.plasma.private.systemtray
+wallpaperplugin=org.kde.image
+
+[Containments][6][General]
+extraItems=org.kde.plasma.networkmanagement,org.kde.plasma.volume,org.kde.plasma.clipboard,org.kde.plasma.notifications,org.kde.plasma.devicenotifier,org.kde.plasma.battery,project-r.return-to-gaming
+shownItems=project-r.return-to-gaming

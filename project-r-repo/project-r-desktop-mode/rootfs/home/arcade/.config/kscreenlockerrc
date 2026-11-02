@@ -1,0 +1,5 @@
+# No automatic screen locking in Desktop Mode (passwordless arcade user)
+
+[Daemon]
+Autolock=false
+LockOnResume=false
