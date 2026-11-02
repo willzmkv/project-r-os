@@ -10,6 +10,12 @@ useradd -m -s /bin/bash -G wheel,audio,video,input,storage,optical arcade
 passwd -d arcade
 passwd -d root
 
+# ── 1b. Base system identity (prevents interactive systemd-firstboot) ────────
+echo "project-r" > /etc/hostname
+echo "LANG=C.UTF-8" > /etc/locale.conf
+echo "KEYMAP=us" > /etc/vconsole.conf
+ln -sf /usr/share/zoneinfo/UTC /etc/localtime
+
 # ── 2. sudo without password for wheel group ─────────────────────────────────
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/wheel-nopasswd
 chmod 440 /etc/sudoers.d/wheel-nopasswd
@@ -48,21 +54,18 @@ xset -dpms
 xset s noblank
 
 # Launch ES-DE
-exec emulationstation --no-splash
+exec es-de --no-splash
 EOF
 chmod +x /home/arcade/.xinitrc /home/arcade/.bash_profile
 
 # ── 5. Configure ES-DE: fullscreen, no splash ────────────────────────────────
 echo "==> Configuring ES-DE defaults"
-mkdir -p /home/arcade/.config/emulationstation
-cat > /home/arcade/.config/emulationstation/es_settings.xml << 'EOF'
+# ES-DE 3.x reads ~/ES-DE/settings/es_settings.xml (flat elements, no root node).
+# Theme stays on the ES-DE default until pr-theme is packaged.
+mkdir -p /home/arcade/ES-DE/settings /home/arcade/games
+cat > /home/arcade/ES-DE/settings/es_settings.xml << 'EOF'
 <?xml version="1.0"?>
-<config>
-  <bool name="ShowSplashScreen" value="false" />
-  <bool name="Windowed" value="false" />
-  <bool name="StartupSystem" value="" />
-  <string name="Theme" value="project-r" />
-</config>
+<string name="ROMDirectory" value="~/games" />
 EOF
 
 # ── 6. Configure pacman to include Project-R repo ────────────────────────────
