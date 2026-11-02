@@ -28,6 +28,22 @@ setup() {
   [[ "$output" == *"DRYRUN: es-de"* ]]
 }
 
+@test "gaming-session.sh requests Desktop Mode when ES-DE is quit normally" {
+  fake="$BATS_TEST_TMPDIR/es-de"
+  printf '#!/usr/bin/env bash\nexit 0\n' > "$fake"; chmod +x "$fake"
+  PR_ESDE_BIN="$fake" run bash "$SCRIPTS_DIR/gaming-session.sh"
+  [ "$status" -eq 0 ]
+  [ "$(cat "$XDG_RUNTIME_DIR/pr-session")" = "desktop" ]
+}
+
+@test "gaming-session.sh keeps Gaming Mode and propagates the code when ES-DE crashes" {
+  fake="$BATS_TEST_TMPDIR/es-de"
+  printf '#!/usr/bin/env bash\nexit 139\n' > "$fake"; chmod +x "$fake"
+  PR_ESDE_BIN="$fake" run bash "$SCRIPTS_DIR/gaming-session.sh"
+  [ "$status" -eq 139 ]
+  [ "$(cat "$XDG_RUNTIME_DIR/pr-session")" = "gaming" ]
+}
+
 # ── switch-to-desktop.sh ───────────────────────────────────────────────────────
 
 @test "switch-to-desktop.sh is executable" {
