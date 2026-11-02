@@ -50,6 +50,8 @@ mesa
 lib32-mesa
 vulkan-intel
 vulkan-radeon
+lib32-vulkan-intel
+lib32-vulkan-radeon
 libva
 libva-mesa-driver
 
