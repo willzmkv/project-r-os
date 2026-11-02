@@ -1,0 +1,14 @@
+[Unit]
+Description=Project-R hotkey daemon (Start+Select switches Gaming/Desktop Mode)
+ConditionUser=arcade
+
+[Service]
+Type=simple
+# Verify python-evdev is available before launching
+ExecStartPre=/usr/lib/project-r/hotkey-daemon.sh --check-deps
+ExecStart=/usr/lib/project-r/hotkey-daemon.sh
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=default.target

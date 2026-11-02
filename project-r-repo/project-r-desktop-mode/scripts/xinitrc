@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# /usr/lib/project-r/xinitrc — X client entry point of Project-R Gaming Mode.
+# Started by project-r-session as `startx /usr/lib/project-r/xinitrc`.
+# Owned by project-r-desktop-mode (not ~/.xinitrc) so upgrades always apply.
+
+# Standard xinitrc.d hooks: import DISPLAY/XAUTHORITY into the systemd user
+# manager and the D-Bus activation environment.
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
+    # shellcheck disable=SC1090
+    [ -x "$f" ] && . "$f"
+  done
+  unset f
+fi
+
+# Arcade device: no screen blanking or DPMS while in Gaming Mode
+xset s off      2>/dev/null || true
+xset -dpms      2>/dev/null || true
+xset s noblank  2>/dev/null || true
+
+exec /usr/lib/project-r/gaming-session.sh
